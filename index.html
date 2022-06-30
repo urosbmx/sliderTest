@@ -115,20 +115,20 @@
     <div id="img"></div>
     <div class="text">
       <div class="titles" data-element="0">
-        <p>1. Discover your Sleep Score</p>
+        <p>Discover your Sleep Score</p>
         <span>Take our questionnaire to identify your sleep problems</span>
       </div>
       <div class="titles" data-element="1">
-        <p>2. Discover your Sleep Score</p>
-        <span>Take our questionnaire to identify your sleep problems</span>
+        <p>Build your treatment program</p>
+        <span>We'll personalize Sleepio based on your symptoms, goals and lifestyle</span>
       </div>
       <div class="titles" data-element="2">
-        <p>3. Discover your Sleep Score</p>
-        <span>Take our questionnaire to identify your sleep problems</span>
+        <p>Incorporate expert techniques</p>
+        <span>Our cognitive behavioral therapy methods are blocked by science and evidance</span>
       </div>
       <div class="titles" data-element="3">
-        <p>4. Discover your Sleep Score</p>
-        <span>Take our questionnaire to identify your sleep problems</span>
+        <p>Track your improvement</p>
+        <span>Progress feels good! We'll help you stay motivated with the tools you need</span>
       </div>
     </div>
     <div class="controls">
@@ -147,16 +147,16 @@
       <span>Take our questionnaire to identify your sleep problems</span>
     </div>
     <div class="text-mobile" data-mobile="1" style="display: none ;">
-      <p>2. Discover your Sleep Score</p>
-      <span>Take our questionnaire to identify your sleep problems</span>
+      <p>Build your treatment program</p>
+      <span>We'll personalize Sleepio based on your symptoms, goals and lifestyle</span>
     </div>
     <div class="text-mobile" data-mobile="2" style="display: none ;">
-      <p>3. Discover your Sleep Score</p>
-      <span>Take our questionnaire to identify your sleep problems</span>
+      <p>Incorporate expert techniques</p>
+      <span>Our cognitive behavioral therapy methods are blocked by science and evidance</span>
     </div>
     <div class="text-mobile" data-mobile="3" style="display: none ;">
-      <p>4. Discover your Sleep Score</p>
-      <span>Take our questionnaire to identify your sleep problems</span>
+      <p>Track your improvement</p>
+      <span>Progress feels good! We'll help you stay motivated with the tools you need</span>
     </div>
   </div>
   <script>
@@ -168,11 +168,13 @@
       "./folder/3-expert-techniques-night-mobile.png",
       "./folder/4-track-improvement-night-mobile.png",
     ];
+
+    
     let amountOfImages = images.length;
-    let currentIndex = 0;
+    let currentIndex = testClick2();
 
     // arrows for contorl and image control
-    var up = document.querySelector(".arrow-down"); 
+    var up = document.querySelector(".arrow-down");
     var down = document.querySelector(".arrow-up");
     var imageContent = document.getElementById("img");
 
@@ -182,11 +184,13 @@
 
     //slider function
     function slideDown() {
+      var index = currentIndex;
       if (currentIndex > 0) {
         currentIndex--;
         updateImage(currentIndex);
-        selectText(currentIndex);
-        
+        selectTextPlus(currentIndex);
+        console.log("Ovo je kada kliknes na gore")
+
       }
     }
     //function for move slide up and down
@@ -194,47 +198,55 @@
       if (currentIndex < amountOfImages - 1) {
         currentIndex++;
         updateImage(currentIndex);
-        selectText(currentIndex);
+        selectTextMinuse(currentIndex);
+        // console.log(currentIndex)
       }
     }
 
     function updateImage(index) {
       imageContent.style.backgroundImage = `url('${images[index]}')`;
     }
-    //function to select corect text with image
-    function selectText(index) {
-      if (index > 0) {
+
+    function selectTextMinuse(index) {
+
+      if (index > 0 && index <= 3) {
+
         document.querySelector(`[data-element="${index}"]`).style.backgroundColor = "white";
         document.querySelector(`[data-element="${index - 1}"]`).style.backgroundColor = "transparent";
         document.querySelector(`[data-element="${index}"] span`).style.display = "block";
         document.querySelector(`[data-element="${index - 1}"] span`).style.display = "none";
-      } else if (index <= 3)
-      document.querySelector(`[data-element="${index}"]`).style.backgroundColor = "white";
-      document.querySelector(`[data-element="${index + 1}"]`).style.backgroundColor = "transparent";
-      document.querySelector(`[data-element="${index}"] span`).style.display ="block";
-      document.querySelector(`[data-element="${index + 1}"] span`).style.display = "none";
+
+
+      }
+
+    }
+    function selectTextPlus(index) {
+
+      if (index >= 0 && index <= 3) {
+
+        document.querySelector(`[data-element="${index}"]`).style.backgroundColor = "white";
+        document.querySelector(`[data-element="${index + 1}"]`).style.backgroundColor = "transparent";
+        document.querySelector(`[data-element="${index}"] span`).style.display = "block";
+        document.querySelector(`[data-element="${index + 1}"] span`).style.display = "none";
+
+
+      }
     }
 
-    // function if you click on text
-    clickText();
-
-
-    function clickText() {
-    const text = document.querySelectorAll('.titles');
-     text.forEach((textVal)=>{
-      textVal.addEventListener('click', () => {
-        var atribut = textVal.getAttribute('data-element');
-        // Ovo funkcija menja slike ->
-        updateImage(atribut)
-
+    function testClick2(){
+      const text = document.querySelectorAll('.titles');
+      var atributValue = 0
+      text.forEach((textValue) =>{
+        textValue.addEventListener('click', () =>{
+          parseInt(atributValue = textValue.getAttribute('data-element'));
+          updateImage(atributValue);
+          console.log(atributValue);
+          // selectTextPlus(atributValue);
+        })
       })
-     })
+      console.log(atributValue)
+      return atributValue
     }
-
-
-
-
-
 
 
 
